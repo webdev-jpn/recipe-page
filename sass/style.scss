@@ -1,0 +1,312 @@
+// Breakpoints
+$breakpoints: (
+  mobile: 375px,
+  tablet-min: 768px,
+  tablet-max: 1439px,
+  desktop: 1440px,
+);
+
+// Mixin
+@mixin mq($device) {
+  @media (min-width: map-get($breakpoints, $device)) {
+    @content;
+  }
+}
+
+@mixin mq-between($min, $max) {
+  @media (min-width: map-get($breakpoints, $min)) and (max-width: map-get($breakpoints, $max)) {
+    @content;
+  }
+}
+
+// Colors
+$card-bg-color: hsl(0, 0%, 100%);
+$text-color-base: hsl(30, 10%, 34%);
+$body-bg-color: hsl(330, 100%, 98%);
+$article-bg-color: hsl(330, 100%, 98%);
+
+// Fonts
+$font-size-paragraph: 16px;
+$font-weight-regular: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 700;
+$font-family-heading: "Young Serif", serif;
+$font-family-paragraph: "Outfit", sans-serif;
+
+.tab-hide {
+  @include mq-between(tablet-min, tablet-max) {
+    display: none;
+  }
+}
+
+.pc-hide {
+  @include mq(desktop) {
+    display: none;
+  }
+}
+
+.section-title {
+  font-size: 28px;
+  line-height: 1;
+  font-family: $font-family-heading;
+  color: hsl(332, 51%, 32%);
+  margin-bottom: 24px;
+}
+
+body {
+  font-family: $font-family-paragraph;
+  font-size: $font-size-paragraph;
+  font-weight: $font-weight-regular;
+  color: $text-color-base;
+}
+
+main {
+  background-color: $body-bg-color;
+
+  @include mq-between(tablet-min, tablet-max) {
+    padding: 122px 0;
+  }
+
+  @include mq(desktop) {
+    padding: 125px 0;
+  }
+}
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+  background-color: $card-bg-color;
+
+  @include mq-between(tablet-min, tablet-max) {
+    width: 616px;
+    margin: 0 auto;
+    border-radius: 24px;
+  }
+
+  @include mq(desktop) {
+    width: 736px;
+    margin: 0 auto;
+    border-radius: 24px;
+  }
+}
+
+.recipe__overview {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-right: 32px;
+  padding-left: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @include mq-between(tablet-min, tablet-max) {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+
+  @include mq(desktop) {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.recipe__overview-image {
+  @include mq-between(tablet-min, tablet-max) {
+    margin: 0 auto;
+    padding-top: 40px;
+  }
+
+  @include mq(desktop) {
+    margin: 0 auto;
+    padding-top: 40px;
+  }
+
+  img {
+    width: 100%;
+    min-width: 375px;
+
+    @include mq-between(tablet-min, tablet-max) {
+      max-width: 536px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+}
+
+.recipe__overview-text {
+  h1 {
+    font-size: 36px;
+    line-height: 1;
+    font-family: $font-family-heading;
+    color: hsl(24, 5%, 18%);
+
+    @include mq(desktop) {
+      font-size: 40px;
+    }
+  }
+
+  p {
+    margin-top: 24px;
+    line-height: 1.5;
+  }
+}
+
+.recipe__time {
+  width: 100%;
+  background-color: hsl(330, 100%, 98%);
+  padding: 24px;
+  line-height: 1.5;
+  border-radius: 12px;
+
+  @include mq(desktop) {
+    padding: 27px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 0; /* Remove default indentation */
+  }
+
+  li {
+    position: relative;
+    padding-left: 40px; /* Reserve space for custom marker */
+
+    strong {
+    }
+  }
+
+  li::before {
+    content: "•"; /* Create custom marker */
+    position: absolute;
+    left: 0; /* Place at the left edge */
+    top: 50%; /* Position at the vertical center of li */
+    transform: translateY(-50%); /* Align vertically centered */
+    color: hsl(30, 10%, 34%); /* Set color to match design */
+    font-size: 1.2rem; /* Adjust size if necessary */
+    padding-left: 8px;
+  }
+}
+
+.recipe__time-subtitle {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: $font-weight-medium;
+  color: hsl(332, 51%, 32%);
+  padding-bottom: 16px;
+}
+
+.recipe__ingredients,
+.recipe__instructions {
+  border-bottom: 1px solid hsl(30, 18%, 87%);
+  padding-bottom: calc(32px - 1px);
+}
+
+.recipe__ingredients {
+  ul {
+    padding-left: 0; /* Remove default indentation */
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  li {
+    line-height: 1.5;
+    position: relative;
+    padding-left: 40px; /* Reserve space for custom marker */
+  }
+
+  li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: hsl(30, 10%, 34%);
+    font-size: 1.2rem;
+    padding-left: 8px;
+  }
+}
+
+.recipe__instructions {
+  ol {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  li {
+    position: relative;
+    padding-left: 40px; /* Reserve space for numbers */
+    line-height: 1.5;
+    counter-increment: step; /* Increment the counter */
+    strong {
+    }
+  }
+
+  li::before {
+    content: counter(step) "."; /* Generate numbers */
+    position: absolute;
+    left: 8px;
+    top: 0;
+    font-weight: bold;
+    color: hsl(30, 10%, 34%);
+  }
+}
+
+.recipe__nutrition {
+  p {
+    line-height: 1.5;
+    padding-bottom: 24px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tbody {
+      tr {
+        width: 100%;
+        display: flex;
+
+        th {
+          text-align: left;
+          padding-left: 32px;
+          line-height: 1.5;
+          flex-basis: 50%;
+          flex-shrink: 0; // Prevent the width from shrinking
+        }
+
+        td {
+          font-weight: $font-weight-bold;
+          color: hsl(332, 51%, 32%);
+          line-height: 1.5;
+          margin-left: 7px;
+          flex-basis: 50%;
+        }
+
+        // Add border to all rows except the last one
+        &:not(:last-child) {
+          border-bottom: 1px solid hsl(30, 18%, 87%);
+
+          th,
+          td {
+            padding-bottom: calc(12px - 1px / 2);
+          }
+        }
+
+        // Add spacing to all rows except the first one
+        &:not(:first-child) {
+          th,
+          td {
+            padding-top: calc(12px - 1px / 2);
+          }
+        }
+      }
+    }
+  }
+}
